@@ -1,44 +1,7 @@
-<!-- comment to change commit message.  -->
 <?php 
-session_start(); // starts the session to store success messages
-// connect to the database
-require 'db.php'; 
-
-// checks if there was a request by a user submitting a form
-if ($_SERVER['REQUEST_METHOD'] === 'POST')  {
-    $company = $_POST['compName'] ?? '';
-    $location = $_POST['compLocation'] ?? '';
-    $date = $_POST['applyDate'] ?? '';
-    $url = $_POST['vacancyUrl'] ?? '';
-    $desc = $_POST['jobDesc'] ?? '';
-
-
-    // url http/https handling
-    if (!preg_match('/^https?:\/\//', $url)) {
-        $url = 'https://' . $url; // automatically adds https:// if missing
-    }
-// security to prevent SQL injections
-// pdo = PHP Data Object
-// stmt = Statement / SQL Statement 
-$stmt = $pdo->prepare("INSERT INTO applications (company_name, company_location, description, date_applied, vacancy_url) VALUES (?, ?, ?, ?, ?)");
-$stmt->execute([$company, $location, $desc, $date, $url]);
-
-// user confirmation that the insert worked by showing a success message
-echo "<p>Application added for <strong>$company</strong>!</p>";
-
-// store success message in session
-$_SESSION['success_message'] = "Application added for <strong>$company</strong>!";
-
-// redirect to the same page (GET request) to prevent form resubmission
-header('Location: ' . $_SERVER['PHP_SELF']);
-exit;
-}
-// fetch the data from the database
-
-$stmt = $pdo->query("SELECT * FROM applications");
-$applications = $stmt->fetchAll(PDO::FETCH_ASSOC);
+session_start();
+require 'fetch_applications.php';
 ?>
-
 
 <H1>Appleasy</H1>
 <h2>Keep track of your job applications - the easy way!</h2>
@@ -50,7 +13,7 @@ if(isset($_SESSION['success_message'])) {
 }
 ?>
 
-<form method="POST" action="">
+<form method="POST" action="handle_form.php">
 <input type="text" name="compName" placeholder="Company name" required></input> </br>
 <input type="text" name="compLocation" placeholder="Location"></input> </br>
 <input type="date" name="applyDate" placeholder="Application date"></input> </br>
@@ -99,34 +62,5 @@ if(isset($_SESSION['success_message'])) {
     </tbody>
 </table>
 
-<!-- JavaScript for the reply checkbox -->
-<script>
-    // debug
-    // console.log('Script loaded!');
+<script src="js/main.js"></script>
 
-document.querySelectorAll('.reply-checkbox').forEach(checkbox => {
-    checkbox.addEventListener('change', function () {
-        const appId = this.dataset.id;
-
-        fetch('update_reply.php', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded'
-            },
-            body: `id=${appId}`
-        })
-        .then(res => res.text())
-        .then(data => {
-            if (data === 'ok') {
-                this.disabled = true;
-                this.checked = true;
-            } else {
-                alert('Failed to update reply status.');
-                console.error('Server response:', data);
-            }
-        });
-    });
-});
-</script>
-</body>
-</html>
