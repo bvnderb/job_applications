@@ -1,3 +1,4 @@
+<!-- comment to change commit message.  -->
 <?php 
 session_start(); // starts the session to store success messages
 // connect to the database
