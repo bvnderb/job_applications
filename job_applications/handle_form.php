@@ -1,5 +1,5 @@
-<!-- comment to change commit message.  -->
 <?php 
+session_start();
 // connect to the database
 require 'db.php'; 
 
@@ -27,15 +27,14 @@ echo "<p>Application added for <strong>$company</strong>!</p>";
 // store success message in session
 $_SESSION['success_message'] = "Application added for <strong>$company</strong>!";
 
-// redirect to the same page (GET request) to prevent form resubmission
-header('Location: ' . $_SERVER['PHP_SELF']);
+header('Location: index.php');
 exit;
+
 }
 // fetch the data from the database
 
 $stmt = $pdo->query("SELECT * FROM applications");
 $applications = $stmt->fetchAll(PDO::FETCH_ASSOC);
-header('Location: index.php');
-exit;
+
 ?>
 

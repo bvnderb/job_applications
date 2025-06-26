@@ -7,6 +7,7 @@ require 'fetch_applications.php';
 <h2>Keep track of your job applications - the easy way!</h2>
 
 <?php 
+// displays success message if it's available
 if(isset($_SESSION['success_message'])) {
     echo "<p class='success'>{$_SESSION['success_message']}</p>";
     unset($_SESSION['success_message']); // clear the success message after displaying it
