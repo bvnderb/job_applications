@@ -1,0 +1,39 @@
+# macOS
+.DS_Store
+
+# Node modules (if any JS tooling is used)
+node_modules/
+
+# Composer dependencies (if used)
+vendor/
+
+# PHPStorm and VSCode project files
+.idea/
+.vscode/
+
+# Log files
+*.log
+
+# Environment files
+.env
+.env.*
+
+# Cache and backup files
+*.cache
+*.bak
+
+# System files
+Thumbs.db
+
+# SFTP config
+.sftpConfig.json
+
+# Ignore compiled/minified assets (if any)
+/dist/
+/build/
+
+# Ignore uploads (if any)
+uploads/
+
+# Database configuration (contains sensitive info)
+db.php
