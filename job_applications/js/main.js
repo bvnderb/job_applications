@@ -1,8 +1,46 @@
     // debug
     // console.log('Script loaded!');
 
-    // script for the reply checkbox
+// event listener for the form
+document.querySelector('form').addEventListener('submit', function (event) {
+    event.preventDefault(); // prevent the default form submission
 
+    const formData = new FormData(this); // collect form data
+
+    //send the form data via AJAX = Asynchronous Javascript and XML (fetch request)
+    fetch('handle_submit_form.php', {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => response.json()) // parse the response as JSON
+    .then(data => {
+        const successMessageContainer = document.getElementById('success-message');
+        const errorMessageContainer = document.getElementById('error-message');
+
+        if (data.status === 'success') {
+            // if the submission was succesful, we will display the success message
+            successMessageContainer.innerHTML = data.message;
+            successMessageContainer.style.display = 'block';
+            errorMessageContainer.style.display = 'none';
+
+            // hide the message after a few seconds
+            setTimeout(() => {
+                successMessageContainer.style.display = 'none';
+            }, 5000); // hide after 5 seconds    
+        } else {
+            // if there was an error, we will display the error message
+            errorMessageContainer.innerHTML = data.message;
+            errorMessageContainer.style.display = 'block';
+            successMessageContainer.style.display = 'none';
+        }
+    })
+    .catch(error => {
+        console.error('Error submitting form:', error);
+    });
+ });
+
+
+// script for the reply checkbox
 document.querySelectorAll('.reply-checkbox').forEach(checkbox => {
     checkbox.addEventListener('change', function () {
         const appId = this.dataset.id;
@@ -33,7 +71,7 @@ function showFeedbackForm(id) {
     document.getElementById('feedback-form-' + id).style.display = 'block';
 }
 
-// function to submit the feedback, 
+// function to submit the feedback form
 function submitFeedback(id) {
     const form = document.getElementById('feedback-form-' + id);
     const formData = new FormData(form);
@@ -58,3 +96,4 @@ function submitFeedback(id) {
         console.error(error);
     });
 }
+

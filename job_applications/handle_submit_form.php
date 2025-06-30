@@ -19,23 +19,31 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST')  {
         $url = 'https://' . $url; // adds https:// if missing
     }
 
-// prepares and executes an SQL INSERT query to store the data in the database
-$stmt = $pdo->prepare("INSERT INTO applications (company_name, company_location, description, date_applied, vacancy_url)
-                       VALUES (?, ?, ?, ?, ?)");
-$stmt->execute([$company, $location, $desc, $date, $url]);
+    // sets the current date if no date was provided
+    if (empty($date)) {
+        $date = date('Y-m-d');
+    }
 
-// user confirmation that the insert worked by showing a success message
-echo "<p>Application added for <strong>$company</strong>!</p>";
-
-// store success message in session
-$_SESSION['success_message'] = "Application added for <strong>$company</strong>!";
-
-header('Location: index.php');
-exit;
-
+    // prepares and executes an SQL INSERT query to store the data in the database
+    if (!empty($company) && !empty($location) && !empty($desc)) {
+        $stmt = $pdo->prepare("INSERT INTO applications (company_name, company_location, description, date_applied, vacancy_url) VALUES (?, ?, ?, ?, ?)");
+        $stmt->execute([$company, $location, $desc, $date, $url]);
+        
+        // return a success respone
+        echo json_encode([
+            'status' => 'success',
+            'message' => "Application added for <strong>$company</strong>!"
+        ]);
+    } else {
+        http_response_code(400); // bad request
+        echo json_encode([
+            'status' => 'error',
+            'message' => "Invalid input. Please ensure all fields are filled."
+        ]);
+    }    
 }
-// fetch the data from the database
 
+// fetch the data from the database
 $stmt = $pdo->query("SELECT * FROM applications");
 $applications = $stmt->fetchAll(PDO::FETCH_ASSOC);
 

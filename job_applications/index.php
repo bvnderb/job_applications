@@ -32,6 +32,9 @@ require 'fetch_applications.php';
 </form>
 
 <h3>Job applications</h3>
+<h4>Succes messages go here!</h4>
+<div id="success-message" style="display: none; color: green;"></div>
+<div id="error-message" style="display: none; color: red;"></div>
 
 <table border="1">
     <thead>
