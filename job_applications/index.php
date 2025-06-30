@@ -14,6 +14,7 @@ if(isset($_SESSION['success_message'])) {
 }
 ?>
 
+<?php //the following code says: "when this form is submitted, send the data via POST to handle_form.php ?>
 <form method="POST" action="handle_form.php">
 <input type="text" name="compName" placeholder="Company name" required></input> </br>
 <input type="text" name="compLocation" placeholder="Location"></input> </br>

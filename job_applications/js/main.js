@@ -1,6 +1,8 @@
     // debug
     // console.log('Script loaded!');
 
+    // script for the reply checkbox
+
 document.querySelectorAll('.reply-checkbox').forEach(checkbox => {
     checkbox.addEventListener('change', function () {
         const appId = this.dataset.id;
