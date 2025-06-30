@@ -23,10 +23,10 @@ document.querySelector('form').addEventListener('submit', function (event) {
             successMessageContainer.style.display = 'block';
             errorMessageContainer.style.display = 'none';
 
-            // hide the message after a few seconds
-            setTimeout(() => {
-                successMessageContainer.style.display = 'none';
-            }, 5000); // hide after 5 seconds    
+            // // hide the message after a few seconds
+            // setTimeout(() => {
+            //     successMessageContainer.style.display = 'none';
+            // }, 5000); // hide after 5 seconds    
         } else {
             // if there was an error, we will display the error message
             errorMessageContainer.innerHTML = data.message;
