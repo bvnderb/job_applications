@@ -3,8 +3,9 @@ session_start();
 // connect to the database
 require 'db.php'; 
 
-// checks if the form was submitted using the POST method
 
+// CHECKBOX code below
+// checks if the form was submitted using the POST method
 if ($_SERVER['REQUEST_METHOD'] === 'POST')  {
     // retrieves form input values from the $_POST superglobal (or sets empty string of not provided)
     $company = $_POST['compName'] ?? '';
@@ -38,6 +39,12 @@ exit;
 
 $stmt = $pdo->query("SELECT * FROM applications");
 $applications = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+
+// add feedback code below
+
+
+
 
 ?>
 

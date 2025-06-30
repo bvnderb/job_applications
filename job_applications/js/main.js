@@ -26,3 +26,9 @@ document.querySelectorAll('.reply-checkbox').forEach(checkbox => {
         });
     });
 });
+
+// function to show the feedback form
+function showFeedbackForm(id) {
+    const form = document.getElementById('feedback-form-' + id);
+    form.style.display = 'block';
+}

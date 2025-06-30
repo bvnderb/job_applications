@@ -1,4 +1,4 @@
-<?php 
+<?php
 session_start();
 require 'fetch_applications.php';
 ?>
@@ -6,23 +6,24 @@ require 'fetch_applications.php';
 <H1>Appleasy</H1>
 <h2>Keep track of your job applications - the easy way!</h2>
 
-<?php 
+<?php
 // displays success message if it's available
-if(isset($_SESSION['success_message'])) {
+if (isset($_SESSION['success_message'])) {
     echo "<p class='success'>{$_SESSION['success_message']}</p>";
     unset($_SESSION['success_message']); // clear the success message after displaying it
 }
 ?>
 
-<?php //the following code says: "when this form is submitted, send the data via POST to handle_form.php ?>
-<form method="POST" action="handle_form.php">
-<input type="text" name="compName" placeholder="Company name" required></input> </br>
-<input type="text" name="compLocation" placeholder="Location"></input> </br>
-<input type="date" name="applyDate" placeholder="Application date"></input> </br>
-<textarea name="jobDesc" rows="5" cols="40" placeholder="Job description"></textarea> </br>
-<input type="text" name="vacancyUrl" placeholder="Provide an URL to the job listing"></input> </br>
-<input type="submit" value="Add application"></input>
-</form> 
+<?php //the following code says: "when this form is submitted, send the data via POST to handle_form.php 
+?>
+<form method="POST" action="handle_actions.php">
+    <input type="text" name="compName" placeholder="Company name" required></input> </br>
+    <input type="text" name="compLocation" placeholder="Location"></input> </br>
+    <input type="date" name="applyDate" placeholder="Application date"></input> </br>
+    <textarea name="jobDesc" rows="5" cols="40" placeholder="Job description"></textarea> </br>
+    <input type="text" name="vacancyUrl" placeholder="Provide an URL to the job listing"></input> </br>
+    <input type="submit" value="Add application"></input>
+</form>
 
 <h3>Job applications</h3>
 
@@ -36,6 +37,7 @@ if(isset($_SESSION['success_message'])) {
             <th>Vacancy url</th>
             <th>Got a reply?</th>
             <th>Feedback</th>
+            <th colspan="3">Actions</th>
         </tr>
     </thead>
     <tbody>
@@ -47,10 +49,10 @@ if(isset($_SESSION['success_message'])) {
                 <td><?php echo htmlspecialchars($application['description']); ?></td>
                 <td><a href="<?php echo htmlspecialchars($application['vacancy_url']) ?>" target="_blank">View Listing</td>
                 <td><?php if ($application['got_reply']): ?>
-                    ✅
-                <?php else: ?>
-                <input type="checkbox" class="reply-checkbox" data-id="<?= $application['id'] ?>">
-                <?php endif; ?>
+                        ✅
+                    <?php else: ?>
+                        <input type="checkbox" class="reply-checkbox" data-id="<?= $application['id'] ?>">
+                    <?php endif; ?>
                 </td>
                 <td>
                     <?php if ($application['feedback']): ?>
@@ -59,10 +61,28 @@ if(isset($_SESSION['success_message'])) {
                         No feedback yet.
                     <?php endif; ?>
                 </td>
+                <td>
+                    <!-- button to reveal the form -->
+                     <button type="button" onclick="showFeedbackForm(<?= $application['id'] ?>)">Add feedback</button>
+
+                    <!-- hidden feedback form -->
+                    <form id="feedback-form-<?= $application['id'] ?>" action="handle_actions.php" method="POST" style="display:none;">
+                        <input type="hidden" name="application_id" value="<?= $application['id'] ?>">
+                        <textarea name="feedback" rows="3" cols="40" placeholder="Enter your feedback here..."></textarea>
+                        <br>
+                        <button type="submit">Save</button>
+                    </form>
+                </td>
+                <td>
+                    <button>Edit</button>
+                </td>
+                <td>
+                    <button>X</button>
+                </td>
+
             </tr>
         <?php endforeach; ?>
     </tbody>
 </table>
 
 <script src="js/main.js"></script>
-
