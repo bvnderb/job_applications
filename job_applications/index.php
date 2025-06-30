@@ -22,7 +22,7 @@ require 'fetch_applications.php';
 
 <?php //the following code says: "when this form is submitted, send the data via POST to handle_form.php 
 ?>
-<form method="POST" action="handle_actions.php">
+<form method="POST" action="handle_submit_form.php">
     <input type="text" name="compName" placeholder="Company name" required></input> </br>
     <input type="text" name="compLocation" placeholder="Location"></input> </br>
     <input type="date" name="applyDate" placeholder="Application date"></input> </br>

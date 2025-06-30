@@ -4,7 +4,6 @@ session_start();
 require 'db.php'; 
 
 
-// CHECKBOX code below
 // checks if the form was submitted using the POST method
 if ($_SERVER['REQUEST_METHOD'] === 'POST')  {
     // retrieves form input values from the $_POST superglobal (or sets empty string of not provided)
