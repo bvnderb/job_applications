@@ -6,13 +6,19 @@ require 'fetch_applications.php';
 <H1>Appleasy</H1>
 <h2>Keep track of your job applications - the easy way!</h2>
 
-<?php
-// displays success message if it's available
-if (isset($_SESSION['success_message'])) {
-    echo "<p class='success'>{$_SESSION['success_message']}</p>";
-    unset($_SESSION['success_message']); // clear the success message after displaying it
-}
-?>
+<?php if (isset($_SESSION['success_message'])): ?>
+    <script>
+        alert("<?= addslashes($_SESSION['success_message']) ?>");
+    </script>
+    <?php unset($_SESSION['success_message']); ?>
+<?php endif; ?>
+
+<?php if (isset($_SESSION['error_message'])): ?>
+    <script>
+        alert("<?= addslashes($_SESSION['error_message']) ?>");
+    </script>
+    <?php unset($_SESSION['error_message']); ?>
+<?php endif; ?>
 
 <?php //the following code says: "when this form is submitted, send the data via POST to handle_form.php 
 ?>
@@ -66,11 +72,11 @@ if (isset($_SESSION['success_message'])) {
                      <button type="button" onclick="showFeedbackForm(<?= $application['id'] ?>)">Add feedback</button>
 
                     <!-- hidden feedback form -->
-                    <form id="feedback-form-<?= $application['id'] ?>" action="handle_actions.php" method="POST" style="display:none;">
+                    <form id="feedback-form-<?= $application['id'] ?>" action="handle_feedback.php" method="POST" style="display:none;">
                         <input type="hidden" name="application_id" value="<?= $application['id'] ?>">
                         <textarea name="feedback" rows="3" cols="40" placeholder="Enter your feedback here..."></textarea>
                         <br>
-                        <button type="submit">Save</button>
+                        <button type="button" onclick="submitFeedback(<?= $application['id'] ?>)">Save</button>
                     </form>
                 </td>
                 <td>

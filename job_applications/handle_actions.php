@@ -40,11 +40,5 @@ exit;
 $stmt = $pdo->query("SELECT * FROM applications");
 $applications = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-
-// add feedback code below
-
-
-
-
 ?>
 
