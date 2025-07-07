@@ -50,7 +50,7 @@ require 'fetch_applications.php';
     </thead>
     <tbody>
         <?php foreach ($applications as $application): ?>
-            <tr>
+            <tr id="row-<?= $application['id']?>">
                 <td><?php echo htmlspecialchars($application['company_name']); ?></td>
                 <td><?php echo htmlspecialchars($application['company_location']); ?></td>
                 <td><?php echo htmlspecialchars($application['date_applied']); ?></td>
@@ -85,7 +85,7 @@ require 'fetch_applications.php';
                     <button>Edit</button>
                 </td>
                 <td>
-                    <button>X</button>
+                    <button id="deleteButton" onclick="deleteItem(<?= $application['id'] ?>)">X</button>
                 </td>
 
             </tr>

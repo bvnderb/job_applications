@@ -97,3 +97,28 @@ function submitFeedback(id) {
     });
 }
 
+function deleteItem(id) {
+    if (!confirm("Are you sure you want to delete this application?")) return;
+
+    fetch('delete_application.php', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        body: 'id=' + encodeURIComponent(id)
+    })
+    .then(res => res.text())
+    .then(data => {
+        if (data === 'ok') {
+            const row = document.getElementById('row-' + id);
+            if (row) row.remove();
+        } else {
+            alert('Failed to delete application.');
+            console.error('Server response:', data);
+        }
+    })
+    .catch(err => {
+        console.error('Request failed:', err);
+        alert('Something went wrong.');
+    });
+}
