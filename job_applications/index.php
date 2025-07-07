@@ -46,11 +46,12 @@ require 'fetch_applications.php';
             <th>Got a reply?</th>
             <th>Feedback</th>
             <th colspan="3">Actions</th>
+            <th>Last Edited</th>
         </tr>
     </thead>
     <tbody>
         <?php foreach ($applications as $application): ?>
-            <tr id="row-<?= $application['id']?>">
+            <tr id="row-<?= $application['id'] ?>">
                 <td><?php echo htmlspecialchars($application['company_name']); ?></td>
                 <td><?php echo htmlspecialchars($application['company_location']); ?></td>
                 <td><?php echo htmlspecialchars($application['date_applied']); ?></td>
@@ -71,7 +72,7 @@ require 'fetch_applications.php';
                 </td>
                 <td>
                     <!-- button to reveal the form -->
-                     <button type="button" onclick="showFeedbackForm(<?= $application['id'] ?>)">Add feedback</button>
+                    <button type="button" onclick="showFeedbackForm(<?= $application['id'] ?>)">Add feedback</button>
 
                     <!-- hidden feedback form -->
                     <form id="feedback-form-<?= $application['id'] ?>" action="handle_feedback.php" method="POST" style="display:none;">
@@ -82,12 +83,37 @@ require 'fetch_applications.php';
                     </form>
                 </td>
                 <td>
-                    <button>Edit</button>
+                    <!-- button to reveal update form -->
+                    <button onclick="showEditForm(<?= $application['id'] ?>)">Edit</button>
+
+                    <!-- hidden edit form -->
+                    <form id="edit-form-<?= $application['id'] ?>" style="display:none;">
+                        <input type="hidden" name="id" value="<?= $application['id'] ?>">
+                        <input type="text" name="company_name" value="<?= htmlspecialchars($application['company_name']) ?>" required placeholder="Company Name">
+                        <input type="text" name="company_location" value="<?= htmlspecialchars($application['company_location']) ?>" required placeholder="Location">
+                        <input type="text" name="description" value="<?= htmlspecialchars($application['description']) ?>" required placeholder="Job Description">
+                        <input type="url" name="vacancy_url" value="<?= htmlspecialchars($application['vacancy_url']) ?>" required placeholder="Job URL">
+
+                        <label>
+                            <input type="checkbox" name="got_reply" value="1" <?= $application['got_reply'] ? 'checked' : '' ?>>
+                            Got a reply
+                        </label>
+                        <br>
+                        <button type="button" onclick="submitEdit(<?= $application['id'] ?>)">Save</button>
+                    </form>
                 </td>
                 <td>
                     <button id="deleteButton" onclick="deleteItem(<?= $application['id'] ?>)">X</button>
                 </td>
-
+                <td>
+                    <?php
+                    if ($application['last_edited']) {
+                        echo date('d F Y, H:i', strtotime($application['last_edited']));
+                    } else {
+                        echo '—';
+                    }
+                    ?>
+                </td>
             </tr>
         <?php endforeach; ?>
     </tbody>

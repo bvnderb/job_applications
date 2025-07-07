@@ -122,3 +122,34 @@ function deleteItem(id) {
         alert('Something went wrong.');
     });
 }
+
+function showEditForm(id) {
+    const form = document.getElementById('edit-form-' + id);
+    if (form) {
+        form.style.display = 'block';
+    }
+}
+
+function submitEdit(id) {
+    const form = document.getElementById('edit-form-' + id);
+    const formData = new FormData(form);
+
+    fetch('handle_edit.php', {
+        method: 'POST',
+        body: formData
+    })
+    .then(res => res.text())
+    .then(data => {
+        if (data === 'ok') {
+            alert('Application updated successfully!');
+            location.reload(); // refresh the page to show updates
+        } else {
+            alert('Error updating application.');
+            console.error(data);
+        }
+    })
+    .catch(error => {
+        alert('Something went wrong.');
+        console.error(error);
+    });
+}
