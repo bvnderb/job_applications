@@ -31,7 +31,7 @@ require 'fetch_applications.php';
     <input type="submit" value="Add application"></input>
 </form>
 
-<h3>Job applications</h3>
+<h3>Ongoing applications</h3>
 <div id="success-message" style="display: none; color: green;"></div>
 <div id="error-message" style="display: none; color: red;"></div>
 
