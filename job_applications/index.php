@@ -45,7 +45,7 @@ require 'fetch_applications.php';
             <th>Vacancy url</th>
             <th>Got a reply?</th>
             <th>Feedback</th>
-            <th colspan="3">Actions</th>
+            <th colspan="4">Actions</th>
             <th>Last Edited</th>
         </tr>
     </thead>
@@ -106,6 +106,14 @@ require 'fetch_applications.php';
                     <button id="deleteButton" onclick="deleteItem(<?= $application['id'] ?>)">X</button>
                 </td>
                 <td>
+                    <!-- archive -->
+                    <form method="POST" action="archive_application.php" style="display:inline;">
+                        <input type="hidden" name="id" value="<?= $application['id'] ?>">
+                        <input type="hidden" name="action" value="archive">
+                        <button type="submit">Archive</button>
+                    </form>
+                </td>
+                <td>
                     <?php
                     if ($application['last_edited']) {
                         echo date('d F Y, H:i', strtotime($application['last_edited']));
@@ -119,4 +127,49 @@ require 'fetch_applications.php';
     </tbody>
 </table>
 
+<h3>Archived Applications</h3>
+<table border="1">
+    <thead>
+        <tr>
+            <th>Company Name</th>
+            <th>Location</th>
+            <th>Date applied</th>
+            <th>Description</th>
+            <th>Vacancy URL</th>
+            <th>Got a reply?</th>
+            <th>Feedback</th>
+            <th>Last Edited</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php foreach ($archived_applications as $application): ?>
+            <tr>
+                <td><?= htmlspecialchars($application['company_name']) ?></td>
+                <td><?= htmlspecialchars($application['company_location']) ?></td>
+                <td><?= htmlspecialchars($application['date_applied']) ?></td>
+                <td><?= htmlspecialchars($application['description']) ?></td>
+                <td><a href="<?= htmlspecialchars($application['vacancy_url']) ?>" target="_blank">View</a></td>
+                <td><?= $application['got_reply'] ? '✅' : '—' ?></td>
+                <td><?= $application['feedback'] ? htmlspecialchars($application['feedback']) : 'No feedback' ?></td>
+                <td>
+                    <?php
+                    if ($application['last_edited']) {
+                        echo date('d F Y, H:i', strtotime($application['last_edited']));
+                    } else {
+                        echo '—';
+                    }
+                    ?>
+                </td>
+                <td>
+                    <form method="POST" action="archive_application.php" style="display:inline;">
+                        <input type="hidden" name="id" value="<?= $application['id'] ?>">
+                        <input type="hidden" name="action" value="unarchive">
+                        <button type="submit">Unarchive</button>
+                    </form>
+                </td>
+            </tr>
+        <?php endforeach; ?>
+    </tbody>
+</table>
 <script src="js/main.js"></script>
