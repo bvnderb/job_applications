@@ -7,7 +7,7 @@ require 'fetch_applications.php';
 <h2>Keep track of your job applications - the easy way!</h2>
 
 <h3>Vacancy sites</h3>
-<div id="vacancy_sites: ">
+<div id="vacancy_sites">
 <a href="https://www.vdab.be/vindeenjob/vacatures?trefwoord=full-stack%20developer&sort=datum&sinds=6&p=2" target="_blank">VDAB</a>
 <br>
 <a href="https://www.cordacampus.com/jobs/" target="_blank">Corda Campus</a>
