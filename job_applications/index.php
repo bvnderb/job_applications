@@ -6,6 +6,17 @@ require 'fetch_applications.php';
 <H1>Appleasy</H1>
 <h2>Keep track of your job applications - the easy way!</h2>
 
+<h3>Vacancy sites</h3>
+<div id="vacancy_sites: ">
+<a href="https://www.vdab.be/vindeenjob/vacatures?trefwoord=full-stack%20developer&sort=datum&sinds=6&p=2" target="_blank">VDAB</a>
+<br>
+<a href="https://www.cordacampus.com/jobs/" target="_blank">Corda Campus</a>
+<br>
+<a href="https://nl.glassdoor.be/Job/index.html" target="_blank">Glassdoor</a>
+<br>
+<a href="https://www.ictjob.be/nl/it-vacatures-zoeken?skills=906%2C905%2C142%2C190%2C203&locations=1%2C2%2C9" target="_blank">ICTJOB</a>
+
+</div>
 <?php if (isset($_SESSION['success_message'])): ?>
     <script>
         alert("<?= addslashes($_SESSION['success_message']) ?>");
@@ -22,6 +33,7 @@ require 'fetch_applications.php';
 
 <?php //the following code says: "when this form is submitted, send the data via POST to handle_form.php 
 ?>
+<h3>Add an application</h3>
 <form method="POST" action="handle_submit_form.php">
     <input type="text" name="compName" placeholder="Company name" required></input> </br>
     <input type="text" name="compLocation" placeholder="Location"></input> </br>
