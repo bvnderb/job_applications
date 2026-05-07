@@ -1,0 +1,236 @@
+:root {
+    --blue:    #2563eb;
+    --blue-h:  #1d4ed8;
+    --green:   #16a34a;
+    --green-h: #15803d;
+    --red:     #dc2626;
+    --red-h:   #b91c1c;
+    --amber:   #d97706;
+    --amber-h: #b45309;
+    --gray-50:  #f9fafb;
+    --gray-100: #f3f4f6;
+    --gray-200: #e5e7eb;
+    --gray-400: #9ca3af;
+    --gray-600: #4b5563;
+    --gray-800: #1f2937;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+    font-family: system-ui, -apple-system, sans-serif;
+    background: var(--gray-50);
+    color: var(--gray-800);
+    line-height: 1.5;
+}
+
+.container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 2rem 1.5rem;
+}
+
+/* ── Header ── */
+h1 {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--blue);
+}
+
+h2 {
+    font-size: 1.1rem;
+    font-weight: 400;
+    color: var(--gray-600);
+    margin-top: 0.25rem;
+    margin-bottom: 1.5rem;
+}
+
+h3 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin: 2rem 0 0.75rem;
+}
+
+/* ── Vacancy sites ── */
+#vacancy_sites {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+#vacancy_sites br { display: none; }
+
+#vacancy_sites a {
+    display: inline-block;
+    padding: 0.4rem 0.9rem;
+    background: #dbeafe;
+    color: var(--blue);
+    border-radius: 6px;
+    text-decoration: none;
+    font-size: 0.875rem;
+    font-weight: 500;
+    transition: background 0.15s;
+}
+
+#vacancy_sites a:hover { background: #bfdbfe; }
+
+/* ── Forms ── */
+form input[type="text"],
+form input[type="date"],
+form input[type="url"],
+form textarea {
+    display: block;
+    width: 100%;
+    max-width: 420px;
+    padding: 0.45rem 0.75rem;
+    margin-bottom: 0.6rem;
+    border: 1px solid var(--gray-200);
+    border-radius: 6px;
+    font-size: 0.9rem;
+    background: white;
+    color: var(--gray-800);
+    transition: border-color 0.15s;
+}
+
+form input[type="text"]:focus,
+form input[type="date"]:focus,
+form input[type="url"]:focus,
+form textarea:focus {
+    outline: none;
+    border-color: var(--blue);
+    box-shadow: 0 0 0 3px #dbeafe;
+}
+
+form br { display: none; }
+
+/* ── Buttons ── */
+button,
+input[type="submit"] {
+    display: inline-block;
+    padding: 0.4rem 0.9rem;
+    border: none;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.15s;
+}
+
+input[type="submit"],
+button[onclick*="submitEdit"],
+button[onclick*="submitFeedback"] {
+    background: var(--green);
+    color: white;
+}
+
+input[type="submit"]:hover,
+button[onclick*="submitEdit"]:hover,
+button[onclick*="submitFeedback"]:hover {
+    background: var(--green-h);
+}
+
+button[onclick*="showEditForm"],
+button[onclick*="showFeedbackForm"] {
+    background: var(--blue);
+    color: white;
+}
+
+button[onclick*="showEditForm"]:hover,
+button[onclick*="showFeedbackForm"]:hover {
+    background: var(--blue-h);
+}
+
+button[onclick*="deleteItem"] {
+    background: var(--red);
+    color: white;
+    font-weight: 700;
+}
+
+button[onclick*="deleteItem"]:hover { background: var(--red-h); }
+
+/* Archive / Unarchive */
+button[type="submit"] {
+    background: var(--amber);
+    color: white;
+}
+
+button[type="submit"]:hover { background: var(--amber-h); }
+
+/* ── Tables ── */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+    font-size: 0.875rem;
+    margin-bottom: 1rem;
+}
+
+/* override the inline border="1" attribute */
+table[border] { border: none; }
+table[border] td,
+table[border] th { border: none; }
+
+thead tr {
+    background: var(--gray-100);
+    border-bottom: 2px solid var(--gray-200);
+}
+
+th {
+    padding: 0.65rem 0.85rem;
+    text-align: left;
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--gray-600);
+}
+
+td {
+    padding: 0.65rem 0.85rem;
+    vertical-align: top;
+    border-bottom: 1px solid var(--gray-100);
+}
+
+tbody tr:last-child td { border-bottom: none; }
+
+tbody tr:hover { background: var(--gray-50); }
+
+td a {
+    color: var(--blue);
+    text-decoration: none;
+}
+
+td a:hover { text-decoration: underline; }
+
+/* ── Inline hidden forms inside table cells ── */
+td form { margin-top: 0.5rem; }
+
+td form input[type="text"],
+td form input[type="url"],
+td form textarea {
+    max-width: 200px;
+    margin-bottom: 0.4rem;
+}
+
+/* ── Flash messages ── */
+#success-message {
+    padding: 0.75rem 1rem;
+    background: #dcfce7;
+    color: var(--green);
+    border-radius: 6px;
+    margin-bottom: 1rem;
+    font-weight: 500;
+}
+
+#error-message {
+    padding: 0.75rem 1rem;
+    background: #fee2e2;
+    color: var(--red);
+    border-radius: 6px;
+    margin-bottom: 1rem;
+    font-weight: 500;
+}
